@@ -10,19 +10,31 @@ This project is a sample that perform optical character recognition by HoloLens
 * HoloToolkit 1.5.5.0
 
 ## Export Form Unity
+
 1. Open This Unity project(HoloOcrSamples). 
-2. Open the File menu and select Build Settings...
-3. In the Build Settings dialog, choose the following options to export for HoloLens:
+
+2. Open [Mixed Reality Toolkit]-[Configure]-[Apply UWP Capability Settings]
+
+3. In the Apply UWP Capability Settings dialog,and check:
+
+![Apply UWP Capability Settings](https://github.com/TakahiroMiyaura/HoloOcrSamples/blob/master/External/ReadMeImage/ApplyUWPCapabilitySettings.png)
+
+ - Microphone
+ - Webcam
+
+4. Select Apply
+5. Open the File menu and select Build Settings...
+6. In the Build Settings dialog, choose the following options to export for HoloLens:
  - **Scene In Build:**HoloOcrSamples
  - **Platform:**Windows Store
  - **SDK:**Universal 10
  - **UWP Build Type:**XAML
-4. Open Player Settings...
-5. Select the Settings for Windows Store tab
-6. Expand the Other Settings group
+7. Open Player Settings...
+8. Select the Settings for Windows Store tab
+9. Expand the Other Settings group
 In the Rendering section, check the Virtual Reality Supported checkbox to add a new Virtual Reality Devices list and confirm "Windows Holographic" is listed as a supported device.
-7. Select Build
-Select the folder "UWP".
-8. Open UWP/HoloOcrSamples.sln
-9. Build Solution.
-10. Deploy Hololens!
+10. Select Build
+11. Select the folder "UWP".
+12. Open UWP/HoloOcrSamples.sln
+13. Build Solution.
+14. Deploy Hololens!
