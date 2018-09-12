@@ -17,7 +17,7 @@ This project is a sample that perform optical character recognition by HoloLens
 
 3. In the Apply Mixed Reality Project Settings dialog,and check:
 
-<img src="https://github.com/TakahiroMiyaura/HoloOcrSamples/blob/master/External/ReadMeImages/ApplyMixedRealityProjectSettings.png" alt="Apply Mixed Reality Project Settings>
+![Apply Mixed Reality Project Settings](https://github.com/TakahiroMiyaura/HoloOcrSamples/blob/Unity2017.2.X/External/ReadMeImage/ApplyMixedRealityProjectSettings.png)
 
  - Target Windows Universal UWP
  - Enable XR
@@ -30,7 +30,7 @@ This project is a sample that perform optical character recognition by HoloLens
 
 6. In the Apply UWP Capability Settings dialog,and check:
 
-<img src="https://github.com/TakahiroMiyaura/HoloOcrSamples/blob/master/External/ReadMeImages/ApplyUWPCapabilitySettings.png" alt="Apply UWP Capability Settings">
+![Apply UWP Capability Settings](https://github.com/TakahiroMiyaura/HoloOcrSamples/blob/Unity2017.2.X/External/ReadMeImage/ApplyUWPCapabilitySettings.png)
 
  - Microphone
  - Webcam
