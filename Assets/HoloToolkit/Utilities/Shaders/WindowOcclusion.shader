@@ -1,8 +1,11 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 ///
 /// Simple occlusion shader that can be used to hide other objects.
 /// This prevents other objects from being rendered by drawing invisible 'opaque' pixels to the depth buffer.
 ///
-Shader "HoloToolkit/WindowOcclusion"
+Shader "MixedRealityToolkit/WindowOcclusion"
 {
     Properties
     {
@@ -39,7 +42,7 @@ Shader "HoloToolkit/WindowOcclusion"
             {
                 UNITY_SETUP_INSTANCE_ID(v);
                 v2f o;
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 return o;
             }

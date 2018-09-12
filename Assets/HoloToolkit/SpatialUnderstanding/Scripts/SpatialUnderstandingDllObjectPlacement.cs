@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace HoloToolkit.Unity
 {
     /// <summary>
-    /// Encapsulates the object placement queries of the understanding dll.
+    /// Encapsulates the object placement queries of the understanding DLL.
     /// These queries will not be valid until after scanning is finalized.
     /// </summary>
     public static class SpatialUnderstandingDllObjectPlacement
@@ -23,7 +23,7 @@ namespace HoloToolkit.Unity
         /// locations that satisfy the type and rules are selected
         /// by optimizing within the constraint list.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ObjectPlacementDefinition
         {
             /// <summary>
@@ -230,7 +230,7 @@ namespace HoloToolkit.Unity
         /// Defines an object placement rule. Rules are one part of an object
         /// placement definition. Rules may not be violated by the returned query.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ObjectPlacementRule
         {
             /// <summary>
@@ -303,7 +303,7 @@ namespace HoloToolkit.Unity
         /// placement definition. Possible object placement locations are picked by the 
         /// location that minimally violates the set of constraints.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct ObjectPlacementConstraint
         {
             /// <summary>
@@ -425,7 +425,7 @@ namespace HoloToolkit.Unity
         /// Object placement result. Defines an oriented bounding box result for the
         /// object placement query.
         /// </summary>
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public class ObjectPlacementResult : ICloneable
         {
             public object Clone()
@@ -446,15 +446,8 @@ namespace HoloToolkit.Unity
         /// scanning phase has finish and the playspace has been finalized.
         /// </summary>
         /// <returns></returns>
-#if UNITY_METRO && !UNITY_EDITOR
         [DllImport("SpatialUnderstanding")]
         public static extern int Solver_Init();
-#else
-        public static int Solver_Init()
-        {
-            return 0;
-        }
-#endif
 
         /// <summary>
         /// Executes an object placement query.
@@ -466,74 +459,46 @@ namespace HoloToolkit.Unity
         /// locations that satisfy the type and rules are selected
         /// by optimizing within the constraint list.
         /// 
-        /// Objects placed with with Solver_PlaceObject persist until removed
+        /// Objects placed with Solver_PlaceObject persist until removed
         /// and are considered in subsequent queries by some rules and constraints.
         /// </summary>
         /// <param name="objectName">Name of the object placement query</param>
-        /// <param name="placementDefinition">The placement defintion, of type ObjectPlacementDefinition</param>
+        /// <param name="placementDefinition">The placement definition, of type ObjectPlacementDefinition</param>
         /// <param name="placementRuleCount">Length of the provided placementRules array</param>
         /// <param name="placementRules">Array of ObjectPlacementRule structures, defining the rules</param>
         /// <param name="constraintCount">Length of the provided placementConstraints array</param>
         /// <param name="placementConstraints">Array of ObjectPlacementConstraint structures, defining the constraints</param>
         /// <param name="placementResult">Pointer to an ObjectPlacementResult structure to receive the result of the query </param>
         /// <returns>Zero on failure, one on success</returns>
-#if UNITY_METRO && !UNITY_EDITOR
         [DllImport("SpatialUnderstanding")]
         public static extern int Solver_PlaceObject(
-            [In] string objectName,
+            [In, MarshalAs(UnmanagedType.LPStr)] string objectName,
             [In] IntPtr placementDefinition,// ObjectPlacementDefinition
             [In] int placementRuleCount,
             [In] IntPtr placementRules,     // ObjectPlacementRule
             [In] int constraintCount,
             [In] IntPtr placementConstraints,// ObjectPlacementConstraint
             [Out] IntPtr placementResult);  // ObjectPlacementResult
-#else
-        public static int Solver_PlaceObject(
-            [In] string objectName,
-            [In] IntPtr placementDefinition,// ObjectPlacementDefinition
-            [In] int placementRuleCount,
-            [In] IntPtr placementRules,     // ObjectPlacementRule
-            [In] int constraintCount,
-            [In] IntPtr placementConstraints,// ObjectPlacementConstraint
-            [Out] IntPtr placementResult)
-        {
-            return 0;
-        }
-#endif
 
         /// <summary>
         /// Removed a solved object. 
         /// 
-        /// Objects placed with with Solver_PlaceObject persist until removed
+        /// Objects placed with Solver_PlaceObject persist until removed
         /// and are considered in subsequent queries by some rules and constraints.
         /// </summary>
         /// <param name="objectName"></param>
         /// <returns></returns>
-#if UNITY_METRO && !UNITY_EDITOR
         [DllImport("SpatialUnderstanding")]
         public static extern int Solver_RemoveObject(
-            [In] string objectName);
-#else
-        public static int Solver_RemoveObject(
-            [In] string objectName)
-        {
-            return 0;
-        }
-#endif
+            [In, MarshalAs(UnmanagedType.LPStr)] string objectName);
 
         /// <summary>
         /// Removed all solved object placements.
         /// 
-        /// Objects placed with with Solver_PlaceObject persist until removed
+        /// Objects placed with Solver_PlaceObject persist until removed
         /// and are considered in subsequent queries by some rules and constraints.
         /// </summary>
-#if UNITY_METRO && !UNITY_EDITOR
         [DllImport("SpatialUnderstanding")]
         public static extern void Solver_RemoveAllObjects();
-#else
-        public static void Solver_RemoveAllObjects()
-        {
-        }
-#endif
     }
 }

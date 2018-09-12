@@ -1,7 +1,10 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+
 ///
 /// Basic wireframe shader that can be used for rendering spatial mapping meshes.
 ///
-Shader "HoloToolkit/Wireframe"
+Shader "MixedRealityToolkit/Wireframe"
 {
     Properties
     {
@@ -45,7 +48,7 @@ Shader "HoloToolkit/Wireframe"
             {
                 UNITY_SETUP_INSTANCE_ID(v);
                 v2g o;
-                o.viewPos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.viewPos = UnityObjectToClipPos(v.vertex);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                 return o;
             }

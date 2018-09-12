@@ -1,8 +1,7 @@
-//
-// Copyright (C) Microsoft. All rights reserved.
-//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License. See LICENSE in the project root for license information.
 
-Shader "HoloToolkit/SpatialUnderstanding/Understanding"
+Shader "MixedRealityToolkit/SpatialUnderstanding/Understanding"
 {
    Properties
    {
@@ -45,7 +44,7 @@ Shader "HoloToolkit/SpatialUnderstanding/Understanding"
            {
                v2g o;
                UNITY_SETUP_INSTANCE_ID(v);
-               o.viewPos = mul(UNITY_MATRIX_MVP, v.vertex);
+               o.viewPos = UnityObjectToClipPos(v.vertex);
                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
                return o;
            }

@@ -1,4 +1,6 @@
-﻿// Copyright(c) 2017 Takahiro Miyaura
+﻿// Copyright(c) 2018 Takahiro Miyaura
+// Released under the MIT license
+// http://opensource.org/licenses/mit-license.php
 
 using System.Collections.Generic;
 using System.Linq;
@@ -7,20 +9,40 @@ using UnityEngine;
 /// <summary>
 ///     This class is a class that manage objects created by UWP project in Unity.
 /// </summary>
-public class UWPBridgeService : MonoBehaviour
+public class UWPBridgeService
 {
-    private static List<IUWPBridgeService> _serviceCollection;
+    private List<IUWPBridgeService> _serviceCollection;
 
     private static readonly object LockObject = new Object();
 
-    public static void AddService<T>(IUWPBridgeService service) where T : IUWPBridgeService
+    private static UWPBridgeService _instance;
+
+    public static UWPBridgeService Instance
+    {
+        get
+        {
+            if (_instance == null)
+                lock (LockObject)
+                {
+                    if (_instance == null)
+                        _instance = new UWPBridgeService();
+                }
+
+            return _instance;
+        }
+    }
+
+    public void AddService<T>(IUWPBridgeService service) where T : IUWPBridgeService
     {
         lock (LockObject)
         {
-            if (_serviceCollection == null)
-                _serviceCollection = new List<IUWPBridgeService>();
             _serviceCollection.Add(service);
         }
+    }
+
+    private UWPBridgeService()
+    {
+        _serviceCollection = new List<IUWPBridgeService>();
     }
 
     /// <summary>
@@ -28,7 +50,7 @@ public class UWPBridgeService : MonoBehaviour
     /// </summary>
     /// <typeparam name="T">Type of the object to be acquired</typeparam>
     /// <returns>object</returns>
-    public static T GetService<T>() where T : IUWPBridgeService
+    public T GetService<T>() where T : IUWPBridgeService
     {
         return _serviceCollection.OfType<T>().FirstOrDefault();
     }
